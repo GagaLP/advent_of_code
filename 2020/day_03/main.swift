@@ -46,12 +46,6 @@ func get_ammount_of_trees_part_b(lines: [String]) -> Int {
     let count_fourth = get_ammount_of_trees(lines: lines, left: 7, down: 1)
     let count_fift = get_ammount_of_trees(lines: lines, left: 1, down: 2)
 
-    // print(count_first)
-    // print(count_second)
-    // print(count_third)
-    // print(count_fourth)
-    // print(count_fift)
-
     return count_first * count_second * count_third * count_fourth * count_fift
 }
 
