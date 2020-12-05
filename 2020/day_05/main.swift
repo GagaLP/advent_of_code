@@ -13,53 +13,57 @@ func read_in_file(file: String) -> [String] {
     return []
 }
 
-func get_seat_id(row: String) -> Int {
-    var row_int = 0
-    var column_int = 0
 
-    for char in row {
+// see the fb and lr as binary numbers. 
+// eg fbbfbbf = 0110110 
+// the easiest way to get this is by shifting
+func get_seat_id(seat: String) -> Int {
+    var row = 0
+    var column = 0
+
+    for char in seat {
         if char == "F" {
-            row_int = row_int << 1
+            row = row << 1
         } else if  char == "B" {
-            row_int = (row_int << 1) + 1
+            row = (row << 1) + 1
         } else if char == "L" {
-            column_int = column_int << 1
+            column = column << 1
         } else if  char == "R" {
-            column_int = (column_int << 1) + 1
+            column = (column << 1) + 1
         }  
     }
 
-    return row_int * 8 + column_int
+    return row * 8 + column
 }
 
-func get_highest_seat_part_a(rows: [String]) -> Int {
+func get_highest_seat_part_a(seats: [String]) -> Int {
     var highest = 0
 
-    for row in rows {
-        highest = max(highest, get_seat_id(row: row))
+    for seat in seats {
+        highest = max(highest, get_seat_id(seat: seat))
     }
 
     return highest
 }
 
-func get_my_seat_number_part_b(rows: [String]) -> Int {
-    var seats: Set<Int> = []
+func get_my_seat_number_part_b(seats: [String]) -> Int {
+    var occupied_seats: Set<Int> = []
 
-    for row in rows {
-        seats.insert(get_seat_id(row: row))
+    for seat in seats {
+        occupied_seats.insert(get_seat_id(seat: seat))
     }
 
-    let seats_sorted = seats.sorted()
+    let sorted_occupied_seats = occupied_seats.sorted()
 
-    var previouse = -2
+    var previouse_seat = -2
     var my_seat = -1
 
-    for seat in seats_sorted {
-        if seat - previouse == 2 {
-            my_seat = seat - 1
+    for current_seat in sorted_occupied_seats {
+        if current_seat - previouse_seat == 2 {
+            my_seat = current_seat - 1
             break
         } else {
-            previouse = seat
+            previouse_seat = current_seat
         }
     }
 
@@ -68,8 +72,8 @@ func get_my_seat_number_part_b(rows: [String]) -> Int {
 
 let file = "input" 
 
-let rows = read_in_file(file: file)
+let seats = read_in_file(file: file)
 
-print(get_highest_seat_part_a(rows: rows))
-print(get_my_seat_number_part_b(rows: rows))
+print(get_highest_seat_part_a(seats: seats))
+print(get_my_seat_number_part_b(seats: seats))
 
