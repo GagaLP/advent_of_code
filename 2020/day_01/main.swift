@@ -43,7 +43,7 @@ func get_multiple_part_b(numbers: [Int]) -> Int {
 let file = "input" 
 
 let numbers = read_in_file(file: file)
-let ints = numbers.map {Int($0)!} 
+let ints = numbers.map{Int($0)!} 
 
 print(get_multiple_part_a(numbers: ints))
 print(get_multiple_part_b(numbers: ints))
